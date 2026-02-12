@@ -1,47 +1,77 @@
-Here is the updated **README.md** content in full Markdown format, reflecting a single-notebook structure and the final results of your analysis.
+Here is your final, professional **README.md** incorporating your exact model results, data preparation logic, and visualizations.
 
 ---
 
-# ## Developer Salary Analysis: ROI of Education and Experience
+# Developer Salary Analysis: ROI of Education and Experience
 
-### ## Business Questions
+## Project Motivation
 
-This analysis focuses on three primary career pillars using the **2023 Stack Overflow Developer Survey**:
+This project provides a data-driven analysis of the factors influencing software developer compensation. Using the **2023 Stack Overflow Developer Survey**, I built a predictive model to quantify the financial impact of three specific career pillars:
 
-1. **Experience:** What is the specific dollar value of each year of coding experience?
-2. **Education:** Is there a significant salary ROI for a Master’s degree over a Bachelor’s?
-3. **Work Environment:** How does the "Remote Premium" compare to Hybrid and In-person roles?
+1. **Experience:** The dollar value of each professional year in the industry.
+2. **Education:** The ROI of a Master’s degree compared to a Bachelor’s.
+3. **Environment:** The salary variance between Remote, Hybrid, and In-person work.
 
----
+## Libraries Used
 
-### ## Data Preparation Summary
+The following Python libraries were utilized for this analysis:
 
-The cleaning and manipulation phase is complete. All data processing and modeling are contained within a single notebook.
-
-#### **Feature Summary:**
-
-* **Salary**: Filtered to a range of **$20,000 to $250,000** to focus on full-time professional compensation.
-* **YearsCodePro**: Transformed from string-based survey responses into continuous numeric floats to represent professional experience.
-* **Is_USA**: A binary feature engineered from the 'Country' column to capture the significant salary variance between the US and global markets.
-* **RemoteWork**: Standardized into three categories: **Remote**, **Hybrid**, and **In-person**.
-* **EdLevel**: Refined to a head-to-head comparison between **Bachelor’s** and **Master’s** degree holders.
-
-#### **Data Integrity:**
-
-All missing values (NaNs) were removed from these specific features, ensuring the model trained on a verified dataset. This resulted in a high-quality analysis of professional salary drivers.
+* **Pandas**: Data cleaning and feature engineering.
+* **NumPy**: Numerical operations.
+* **Matplotlib & Seaborn**: Data visualization.
+* **Scikit-Learn**: Linear Regression modeling and evaluation.
 
 ---
 
+## Data Preparation Summary
 
-### ## Project Structure
+The dataset was cleaned and transformed using the following steps to ensure model integrity:
 
-* **`SalaryAnalysis.ipynb`**: The primary Jupyter Notebook containing data cleaning, Exploratory Data Analysis (EDA), and the Linear Regression model.
-* **`Data/survey_results_public.csv`**: Original dataset from Stack Overflow.(compressed for github reasons)
-* **`README.md`**: Project documentation and summary of findings.
+* **Handling Missing Values**: Rows with missing entries in key columns (`ConvertedCompYearly`, `YearsCodePro`, `EdLevel`, `RemoteWork`) were removed.
+* **Salary Filtering**: Compensation was filtered to a range of **$20,000 to $250,000** to focus on professional full-time roles and remove extreme outliers.
+* **Feature Engineering**:
+* `YearsCodePro` was converted to numeric, handling "Less than 1 year" as **0** and "More than 50 years" as **51**.
+* `Is_USA` was created to isolate the significant salary impact of the United States market.
+* **One-Hot Encoding** was applied to `RemoteWork` and `EdLevel` for regression compatibility.
+
+
 
 ---
 
-### ## Acknowledgments
+## Key Modeling Results
 
-* **Data Source:** This project utilizes the **2023 Stack Overflow Annual Developer Survey** dataset. Accessible through the [official insights page](https://insight.stackoverflowstackexchange.com/survey).
+A Linear Regression model was trained with an **R-squared (Test) of 0.42**, indicating that these features explain approximately 42% of the variance in developer salaries.
+
+**Model Intercept (Baseline):** $55,344.67
+
+| Feature | Predicted Impact (USD) |
+| --- | --- |
+| **Is_USA** | +$65,346.63 |
+| **EdLevel_Master's degree** | +$2,840.57 |
+| **RemoteWork_Remote** | +$2,263.29 |
+| **YearsCodePro (per year)** | +$1,663.14 |
+| **RemoteWork_In-person** | -$11,593.83 |
+
 ---
+
+## Summary of Results
+
+### 1. Education ROI
+
+Based on the visual analysis of the median salary, Bachelor’s degree holders in this specific subset show a higher median baseline. However, when controlling for experience and location in our regression model, a **Master's degree** provides a positive salary premium of approximately **$2,840**.
+
+### 2. Work Environment & Experience
+
+The data reveals a clear hierarchy in work environments. **Remote** roles sit at the top of the distribution with the highest median pay. Conversely, **In-person** roles suffer a significant "office penalty" of roughly **$11,593** compared to hybrid or remote counterparts. Furthermore, every year of professional experience adds an average of **$1,663** to a developer's annual salary.
+
+---
+
+## Files in the Repository
+
+* **`SalaryAnalysis.ipynb`**: The primary Jupyter Notebook containing the data cleaning, EDA, and Linear Regression model.
+* **`survey_results_public.csv`**: The original Stack Overflow 2023 survey dataset.(compressed for github reasons)
+* **`README.md`**: Summary of the project findings and methodology.
+
+## Acknowledgments
+
+* **Data Source:** [2023 Stack Overflow Annual Developer Survey](https://insight.stackoverflowstackexchange.com/survey).
