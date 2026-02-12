@@ -1,7 +1,3 @@
-Here is your final, professional **README.md** incorporating your exact model results, data preparation logic, and visualizations.
-
----
-
 # Developer Salary Analysis: ROI of Education and Experience
 
 ## Project Motivation
